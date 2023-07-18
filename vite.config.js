@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
-import { fileURLToPath, URL } from "node:url";
+import { fileURLToPath, URL } from "node:url"
 
-import { defineConfig } from "vite";
-import legacy from "@vitejs/plugin-legacy";
-import vue2 from "@vitejs/plugin-vue2";
-import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
-import path from "path";
+import { defineConfig } from "vite"
+import legacy from "@vitejs/plugin-legacy"
+import vue2 from "@vitejs/plugin-vue2"
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons"
+import path from "path"
 // https://vitejs.dev/config/
 export default defineConfig({
   envDir: "env",
@@ -30,4 +30,4 @@ export default defineConfig({
     // 指定源代码目录
     src: "src",
   },
-});
+})
