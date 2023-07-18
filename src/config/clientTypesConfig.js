@@ -1,0 +1,16 @@
+export default {
+  Clash: "clash",
+  Surge3: "surge&ver=3",
+  Surge4: "surge&ver=4",
+  Quantumult: "quan",
+  QuantumultX: "quanx",
+  Surfboard: "surfboard",
+  Loon: "loon",
+  SSAndroid: "sssub",
+  V2Ray: "v2ray",
+  ss: "ss",
+  ssr: "ssr",
+  ssd: "ssd",
+  ClashR: "clashr",
+  Surge2: "surge&ver=2",
+}

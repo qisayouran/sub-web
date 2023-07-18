@@ -10,6 +10,7 @@ import("@/plugins/clipboard")
 import("@/plugins/svg-icon")
 
 Vue.use(PiniaVuePlugin)
+Vue.config.productionTip = false
 
 new Vue({
   router,

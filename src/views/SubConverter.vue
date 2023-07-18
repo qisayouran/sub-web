@@ -4,7 +4,7 @@
       <el-col>
         <el-card>
           <div slot="header">
-            订阅转换器
+            订阅转换
             <svg-icon
               icon-class="github"
               style="margin-left: 20px"
@@ -79,7 +79,98 @@
                 </el-select>
               </el-form-item>
 
-              <div v-if="advanced === '2'"></div>
+              <div v-if="advanced === '2'">
+                <el-form-item label="Include:">
+                  <el-input
+                    v-model="form.includeRemarks"
+                    placeholder="节点名包含的关键字，支持正则"
+                  />
+                </el-form-item>
+                <el-form-item label="Exclude:">
+                  <el-input
+                    v-model="form.excludeRemarks"
+                    placeholder="节点名不包含的关键字，支持正则"
+                  />
+                </el-form-item>
+                <el-form-item label="FileName:">
+                  <el-input
+                    v-model="form.filename"
+                    placeholder="返回的订阅文件名"
+                  />
+                </el-form-item>
+                <el-form-item label-width="0px">
+                  <el-row type="flex">
+                    <el-col>
+                      <el-checkbox
+                        v-model="form.nodeList"
+                        label="输出为 Node List"
+                        border
+                      ></el-checkbox>
+                    </el-col>
+                    <el-popover placement="bottom" v-model="form.extraset">
+                      <el-row>
+                        <el-checkbox
+                          v-model="form.emoji"
+                          label="Emoji"
+                        ></el-checkbox>
+                      </el-row>
+                      <el-row>
+                        <el-checkbox
+                          v-model="form.scv"
+                          label="跳过证书验证"
+                        ></el-checkbox>
+                      </el-row>
+                      <el-row>
+                        <el-checkbox
+                          v-model="form.udp"
+                          @change="needUdp = true"
+                          label="启用 UDP"
+                        ></el-checkbox>
+                      </el-row>
+                      <el-row>
+                        <el-checkbox
+                          v-model="form.appendType"
+                          label="节点类型"
+                        ></el-checkbox>
+                      </el-row>
+                      <el-row>
+                        <el-checkbox
+                          v-model="form.sort"
+                          label="排序节点"
+                        ></el-checkbox>
+                      </el-row>
+                      <el-row>
+                        <el-checkbox
+                          v-model="form.fdn"
+                          label="过滤非法节点"
+                        ></el-checkbox>
+                      </el-row>
+                      <el-button slot="reference">更多选项</el-button>
+                    </el-popover>
+                    <el-popover placement="bottom" style="margin-left: 10px">
+                      <el-row>
+                        <el-checkbox
+                          v-model="form.tpl.surge.doh"
+                          label="Surge.DoH"
+                        ></el-checkbox>
+                      </el-row>
+                      <el-row>
+                        <el-checkbox
+                          v-model="form.tpl.clash.doh"
+                          label="Clash.DoH"
+                        ></el-checkbox>
+                      </el-row>
+                      <el-row>
+                        <el-checkbox
+                          v-model="form.insert"
+                          label="网易云"
+                        ></el-checkbox>
+                      </el-row>
+                      <el-button slot="reference">定制功能</el-button>
+                    </el-popover>
+                  </el-row>
+                </el-form-item>
+              </div>
 
               <div style="margin-top: 50px"></div>
 
@@ -172,7 +263,8 @@ const tgBotLink = import.meta.env.VITE_APP_BOT_LINK
 const remoteConfigSample = import.meta.env.VITE_APP_SUBCONVERTER_REMOTE_CONFIG
 const gayhubRelease = import.meta.env.VITE_APP_BACKEND_RELEASE
 import { api } from "../api/ShortSubUrl"
-
+import remote from "@/config/remoteConfig"
+import clientTypes from "@/config/clientTypesConfig"
 export default {
   name: "SubConverter",
   data() {
@@ -183,101 +275,18 @@ export default {
       // 是否为 PC 端
       isPC: true,
       options: {
-        clientTypes: {
-          Clash: "clash",
-          Surge3: "surge&ver=3",
-          Surge4: "surge&ver=4",
-          Quantumult: "quan",
-          QuantumultX: "quanx",
-          Surfboard: "surfboard",
-          Loon: "loon",
-          SSAndroid: "sssub",
-          V2Ray: "v2ray",
-          ss: "ss",
-          ssr: "ssr",
-          ssd: "ssd",
-          ClashR: "clashr",
-          Surge2: "surge&ver=2",
-        },
-        backendOptions: [{ value: "http://127.0.0.1:25500/sub?" }],
-        remoteConfig: [
-          {
-            label: "universal",
-            options: [
-              {
-                label: "No-Urltest",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/no-urltest.ini",
-              },
-              {
-                label: "Urltest",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/urltest.ini",
-              },
-            ],
-          },
-          {
-            label: "customized",
-            options: [
-              {
-                label: "Maying",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/maying.ini",
-              },
-              {
-                label: "Ytoo",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ytoo.ini",
-              },
-              {
-                label: "FlowerCloud",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/flowercloud.ini",
-              },
-              {
-                label: "Nexitally",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/nexitally.ini",
-              },
-              {
-                label: "SoCloud",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/socloud.ini",
-              },
-              {
-                label: "ARK",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ark.ini",
-              },
-              {
-                label: "ssrCloud",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ssrcloud.ini",
-              },
-            ],
-          },
-          {
-            label: "Special",
-            options: [
-              {
-                label: "NeteaseUnblock(仅规则，No-Urltest)",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/special/netease.ini",
-              },
-              {
-                label: "Basic(仅GEOIP CN + Final)",
-                value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/special/basic.ini",
-              },
-            ],
-          },
+        clientTypes: clientTypes,
+        backendOptions: [
+          { name: "本地后端", value: "http://127.0.0.1:25500/sub?" },
+          { value: "http://127.1230.0.1:25500/sub?" },
         ],
+        remoteConfig: remote,
       },
 
       form: {
         sourceSubUrl: "",
         clientType: "clash",
-        customBackend: "",
+        customBackend: "", //后端配置
         remoteConfig: "",
         excludeRemarks: "", //排除备注
         includeRemarks: "", //包含备注
@@ -471,12 +480,15 @@ export default {
     },
     createFilter(queryString) {
       return (candidate) => {
+        console.log(candidate)
+
         return (
           candidate.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
         )
       }
     },
   },
+  mounted() {},
 }
 </script>
 
