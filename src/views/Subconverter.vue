@@ -1,35 +1,95 @@
 <template>
-  <div style="margin: 0 10px;">
-    <el-row style="margin-top: 10px;">
+  <div style="margin: 0 10px">
+    <el-row style="margin-top: 10px">
       <el-col>
         <el-card>
           <div slot="header">
             Subscription Converter
-            <svg-icon icon-class="github" style="margin-left: 20px" @click="goToProject" />
-
-            <div style="display: inline-block; position:absolute; right: 20px">{{ backendVersion }}</div>
+            <svg-icon
+              icon-class="github"
+              style="margin-left: 20px"
+              @click="goToProject"
+            />
+            <div style="display: inline-block; position: absolute; right: 20px">
+              {{ backendVersion }}
+            </div>
           </div>
           <el-container>
-            <el-form :model="form" label-width="80px" label-position="left" style="width: 100%">
-
+            <el-form
+              :model="form"
+              label-width="80px"
+              label-position="left"
+              style="width: 100%"
+            >
               <el-form-item label="模式设置:">
                 <el-radio v-model="advanced" label="1">基础模式</el-radio>
                 <el-radio v-model="advanced" label="2">进阶模式</el-radio>
               </el-form-item>
               <el-form-item label="订阅链接:">
-                <el-input v-model="form.sourceSubUrl" type="textarea" rows="3"
-                  placeholder="支持订阅或ss/ssr/vmess链接，多个链接每行一个或用 | 分隔" @blur="saveSubUrl" />
+                <el-input
+                  v-model="form.sourceSubUrl"
+                  type="textarea"
+                  rows="3"
+                  placeholder="支持订阅或ss/ssr/vmess链接，多个链接每行一个或用 | 分隔"
+                  @blur="saveSubUrl"
+                />
               </el-form-item>
               <el-form-item label="客户端:">
                 <el-select v-model="form.clientType" style="width: 100%">
-                  <el-option v-for="(v, k) in options.clientTypes" :key="k" :label="k" :value="v"></el-option>
+                  <el-option
+                    v-for="(v, k) in options.clientTypes"
+                    :key="k"
+                    :label="k"
+                    :value="v"
+                  ></el-option>
                 </el-select>
               </el-form-item>
-              
+
+              <el-form-item label="后端地址:">
+                <el-autocomplete
+                  style="width: 100%"
+                  v-model="form.customBackend"
+                  :fetch-suggestions="backendSearch"
+                  placeholder="动动小手，（建议）自行搭建后端服务。例：http://127.0.0.1:25500/sub?"
+                >
+                  <el-button
+                    slot="append"
+                    @click="gotoGayhub"
+                    icon="el-icon-link"
+                    >前往项目仓库</el-button
+                  >
+                </el-autocomplete>
+              </el-form-item>
+
+              <el-form-item label="远程配置:">
+                <el-select
+                  v-model="form.remoteConfig"
+                  allow-create
+                  filterable
+                  placeholder="请选择"
+                  style="width: 100%"
+                >
+                  <el-option-group
+                    v-for="group in options.remoteConfig"
+                    :key="group.label"
+                    :label="group.label"
+                  >
+                    <el-option
+                      v-for="item in group.options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    ></el-option>
+                  </el-option-group>
+                </el-select>
+              </el-form-item>
+
+              <div v-if="advanced === '2'"></div>
+
               <div style="margin-top: 50px"></div>
-              
+
               <el-divider content-position="center">
-                <i class="el-icon-magic-stick"></i>
+                <i class="el-icon-magic-stick"> </i>
               </el-divider>
 
               <el-form-item label="定制订阅:">
@@ -40,36 +100,67 @@
                     v-clipboard:success="onCopy"
                     ref="copy-btn"
                     icon="el-icon-document-copy"
-                  >复制</el-button>
+                    >复制</el-button
+                  >
                 </el-input>
               </el-form-item>
               <el-form-item label="订阅短链:">
-                <el-input class="copy-content" disabled v-model="curtomShortSubUrl">
+                <el-input
+                  class="copy-content"
+                  disabled
+                  v-model="curtomShortSubUrl"
+                >
                   <el-button
                     slot="append"
                     v-clipboard:copy="curtomShortSubUrl"
                     v-clipboard:success="onCopy"
                     ref="copy-btn"
                     icon="el-icon-document-copy"
-                  >复制</el-button>
+                    >复制</el-button
+                  >
                 </el-input>
               </el-form-item>
 
-              <el-form-item label-width="0px" style="margin-top: 40px; text-align: center">
+              <el-form-item
+                label-width="0px"
+                style="margin-top: 40px; text-align: center"
+              >
                 <el-button
                   style="width: 120px"
                   type="danger"
                   @click="makeUrl"
                   :disabled="form.sourceSubUrl.length === 0"
-                >生成订阅链接</el-button>
+                  >生成订阅链接</el-button
+                >
                 <el-button
                   style="width: 120px"
                   type="danger"
                   @click="makeShortUrl"
                   :loading="loading"
                   :disabled="customSubUrl.length === 0"
-                >生成短链接</el-button>
-                <!-- <el-button style="width: 120px" type="primary" @click="surgeInstall" icon="el-icon-connection">一键导入Surge</el-button> -->
+                  >生成短链接</el-button
+                >
+                <!-- <el-button style="width: 120px" type="primary" @click="clashInstall" icon="el-icon-connection">一键导入Clash</el-button> -->
+              </el-form-item>
+              <el-form-item label-width="0px" style="text-align: center">
+                <el-button
+                  style="width: 120px"
+                  size="small"
+                  type="primary"
+                  @click="dialogUploadConfigVisible = true"
+                  icon="el-icon-upload"
+                  :loading="loading"
+                  >上传配置</el-button
+                >
+                <el-button
+                  style="width: 120px"
+                  type="primary"
+                  size="small"
+                  @click="clashInstall"
+                  icon="el-icon-connection"
+                  :disabled="customSubUrl.length === 0"
+                  >一键导入Clash</el-button
+                >
               </el-form-item>
             </el-form>
           </el-container>
@@ -80,11 +171,15 @@
 </template>
 
 <script>
-const defaultBackend = import.meta.env.VITE_APP_SUBCONVERTER_DEFAULT_BACKEND
-const tgBotLink = import.meta.env.VITE_APP_BOT_LINK
-const remoteConfigSample = import.meta.env.VITE_APP_SUBCONVERTER_REMOTE_CONFIG
+const defaultBackend = import.meta.env.VITE_APP_SUBCONVERTER_DEFAULT_BACKEND;
+const tgBotLink = import.meta.env.VITE_APP_BOT_LINK;
+const remoteConfigSample = import.meta.env.VITE_APP_SUBCONVERTER_REMOTE_CONFIG;
+const gayhubRelease = import.meta.env.VITE_APP_BACKEND_RELEASE;
+
+import { api } from "../api/ShortSubUrl";
 
 export default {
+  name: "SubConverter",
   data() {
     return {
       backendVersion: "",
@@ -117,14 +212,14 @@ export default {
               {
                 label: "No-Urltest",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/no-urltest.ini"
+                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/no-urltest.ini",
               },
               {
                 label: "Urltest",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/urltest.ini"
-              }
-            ]
+                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/urltest.ini",
+              },
+            ],
           },
           {
             label: "customized",
@@ -132,39 +227,39 @@ export default {
               {
                 label: "Maying",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/maying.ini"
+                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/maying.ini",
               },
               {
                 label: "Ytoo",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ytoo.ini"
+                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ytoo.ini",
               },
               {
                 label: "FlowerCloud",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/flowercloud.ini"
+                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/flowercloud.ini",
               },
               {
                 label: "Nexitally",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/nexitally.ini"
+                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/nexitally.ini",
               },
               {
                 label: "SoCloud",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/socloud.ini"
+                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/socloud.ini",
               },
               {
                 label: "ARK",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ark.ini"
+                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ark.ini",
               },
               {
                 label: "ssrCloud",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ssrcloud.ini"
-              }
-            ]
+                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ssrcloud.ini",
+              },
+            ],
           },
           {
             label: "Special",
@@ -172,16 +267,16 @@ export default {
               {
                 label: "NeteaseUnblock(仅规则，No-Urltest)",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/special/netease.ini"
+                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/special/netease.ini",
               },
               {
                 label: "Basic(仅GEOIP CN + Final)",
                 value:
-                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/special/basic.ini"
-              }
-            ]
-          }
-        ]
+                  "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/special/basic.ini",
+              },
+            ],
+          },
+        ],
       },
 
       form: {
@@ -189,9 +284,9 @@ export default {
         clientType: "clash",
         customBackend: "",
         remoteConfig: "",
-        excludeRemarks: "",
-        includeRemarks: "",
-        filename: "",
+        excludeRemarks: "", //排除备注
+        includeRemarks: "", //包含备注
+        filename: "", //文件名
         emoji: true,
         nodeList: false,
         extraset: false,
@@ -200,24 +295,24 @@ export default {
         tfo: false,
         scv: true,
         fdn: false,
-        appendType: false,
+        appendType: false, //追加类型
         insert: false, // 是否插入默认订阅的节点，对应配置项 insert_url
         new_name: true, // 是否使用 Clash 新字段
 
         // tpl 定制功能
         tpl: {
           surge: {
-            doh: false // dns 查询是否使用 DoH
+            doh: false, // dns 查询是否使用 DoH
           },
           clash: {
-            doh: false
-          }
-        }
+            doh: false,
+          },
+        },
       },
 
       loading: false,
-      customSubUrl: "",
-      curtomShortSubUrl: "",
+      customSubUrl: "", //订阅链接RL
+      curtomShortSubUrl: "", //简短的短子网址
 
       dialogUploadConfigVisible: false,
       loadConfig: "",
@@ -228,9 +323,9 @@ export default {
       sampleConfig: remoteConfigSample,
 
       needUdp: false, // 是否需要添加 udp 参数
-    }
+    };
   },
-  
+
   methods: {
     onCopy() {
       this.$message.success("Copied!");
@@ -239,8 +334,8 @@ export default {
       window.open(import.meta.env.VITE_APP_PROJECT);
     },
     saveSubUrl() {
-      if (this.form.sourceSubUrl !== '') {
-        localStorage.setItem('sourceSubUrl', this.form.sourceSubUrl)
+      if (this.form.sourceSubUrl !== "") {
+        localStorage.setItem("sourceSubUrl", this.form.sourceSubUrl);
       }
     },
     makeUrl() {
@@ -248,7 +343,7 @@ export default {
         this.$message.error("订阅链接与客户端为必填项");
         return false;
       }
-      //后端地址
+      // 后端地址
       let backend =
         this.form.customBackend === ""
           ? defaultBackend
@@ -256,7 +351,7 @@ export default {
 
       let sourceSub = this.form.sourceSubUrl;
       sourceSub = sourceSub.replace(/(\n|\r|\n\r)/g, "|");
-
+      // 自定义子URL
       this.customSubUrl =
         backend +
         "target=" +
@@ -267,6 +362,7 @@ export default {
         this.form.insert;
 
       if (this.advanced === "2") {
+        // 远程配置
         if (this.form.remoteConfig !== "") {
           this.customSubUrl +=
             "&config=" + encodeURIComponent(this.form.remoteConfig);
@@ -303,7 +399,7 @@ export default {
           this.form.sort.toString();
 
         if (this.needUdp) {
-          this.customSubUrl += "&udp=" + this.form.udp.toString()
+          this.customSubUrl += "&udp=" + this.form.udp.toString();
         }
 
         if (this.form.tpl.surge.doh === true) {
@@ -323,19 +419,71 @@ export default {
       this.$message.success("定制订阅已复制到剪贴板");
     },
     makeShortUrl() {
-      // 短链接
-    },
-    surgeInstall() {
-      // if (this.customSubUrl === "") {
-      //   this.$message.error("请先填写必填项，生成订阅链接");
-      //   return false;
-      // }
+      if (this.customSubUrl === "") {
+        this.$message.warning("请先生成订阅链接，再获取对应短链接");
+        return false;
+      }
 
-      // const url = "surge://install-config?url=";
-      // window.open(url + this.customSubUrl);
+      this.loading = true;
+
+      let data = new FormData();
+      data.append("longUrl", btoa(this.customSubUrl));
+
+      api(data)
+        .then((res) => {
+          if (res.Code === 1 && res.ShortUrl !== "") {
+            this.curtomShortSubUrl = res.ShortUrl;
+            this.$copyText(res.ShortUrl);
+            this.$message.success("短链接已复制到剪贴板");
+          } else {
+            this.$message.error("短链接获取失败：" + res.Message);
+          }
+        })
+        .catch(() => {
+          this.$message.error("短链接获取失败");
+        })
+        .finally(() => {
+          this.loading = false;
+        });
     },
-  }
-}
+    clashInstall() {
+      if (this.customSubUrl === "") {
+        this.$message.error("请先填写必填项，生成订阅链接");
+        return false;
+      }
+
+      const url = "clash://install-config?url=";
+      window.open(
+        url +
+          encodeURIComponent(
+            this.curtomShortSubUrl !== ""
+              ? this.curtomShortSubUrl
+              : this.customSubUrl
+          )
+      );
+    },
+    gotoGayhub() {
+      window.open(gayhubRelease);
+    },
+    backendSearch(queryString, cb) {
+      let backends = this.options.backendOptions;
+
+      let results = queryString
+        ? backends.filter(this.createFilter(queryString))
+        : backends;
+
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter(queryString) {
+      return (candidate) => {
+        return (
+          candidate.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+        );
+      };
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss"></style>
