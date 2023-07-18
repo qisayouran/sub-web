@@ -265,6 +265,7 @@ const gayhubRelease = import.meta.env.VITE_APP_BACKEND_RELEASE
 import { api } from "../api/ShortSubUrl"
 import remote from "@/config/remoteConfig"
 import clientTypes from "@/config/clientTypesConfig"
+import backendOptions from "@/config/backendConfig"
 export default {
   name: "SubConverter",
   data() {
@@ -276,10 +277,7 @@ export default {
       isPC: true,
       options: {
         clientTypes: clientTypes,
-        backendOptions: [
-          { name: "本地后端", value: "http://127.0.0.1:25500/sub?" },
-          { value: "http://127.1230.0.1:25500/sub?" },
-        ],
+        backendOptions: backendOptions,
         remoteConfig: remote,
       },
 
