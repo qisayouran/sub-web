@@ -1,7 +1,7 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import Vue from "vue"
+import VueRouter from "vue-router"
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const router = new VueRouter({
   mode: "history",
@@ -10,9 +10,9 @@ const router = new VueRouter({
     {
       path: "/",
       name: "SubConverter",
-      component: () => import("@/views/Subconverter.vue"),
+      component: () => import("@/views/SubConverter.vue"),
     },
   ],
-});
+})
 
-export default router;
+export default router

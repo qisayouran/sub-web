@@ -16,7 +16,6 @@ export default defineConfig({
     }),
     createSvgIconsPlugin({
       // 指定要缓存的图标文件夹
-      // eslint-disable-next-line no-undef
       iconDirs: [path.resolve(process.cwd(), "src/assets/icons")],
       symbolId: "icon-[name]",
     }),
@@ -25,5 +24,9 @@ export default defineConfig({
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
+  },
+  server: {
+    // 指定源代码目录
+    src: "src",
   },
 });

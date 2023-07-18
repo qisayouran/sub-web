@@ -4,7 +4,7 @@
       <el-col>
         <el-card>
           <div slot="header">
-            Subscription Converter
+            订阅转换器
             <svg-icon
               icon-class="github"
               style="margin-left: 20px"
@@ -15,12 +15,7 @@
             </div>
           </div>
           <el-container>
-            <el-form
-              :model="form"
-              label-width="80px"
-              label-position="left"
-              style="width: 100%"
-            >
+            <el-form :model="form" label-width="80px" style="width: 100%">
               <el-form-item label="模式设置:">
                 <el-radio v-model="advanced" label="1">基础模式</el-radio>
                 <el-radio v-model="advanced" label="2">进阶模式</el-radio>
@@ -50,7 +45,7 @@
                   style="width: 100%"
                   v-model="form.customBackend"
                   :fetch-suggestions="backendSearch"
-                  placeholder="动动小手，（建议）自行搭建后端服务。例：http://127.0.0.1:25500/sub?"
+                  placeholder="http://127.0.0.1:25500/sub?"
                 >
                   <el-button
                     slot="append"
@@ -128,6 +123,7 @@
                 <el-button
                   style="width: 120px"
                   type="danger"
+                  size="small"
                   @click="makeUrl"
                   :disabled="form.sourceSubUrl.length === 0"
                   >生成订阅链接</el-button
@@ -135,23 +131,23 @@
                 <el-button
                   style="width: 120px"
                   type="danger"
+                  size="small"
                   @click="makeShortUrl"
                   :loading="loading"
                   :disabled="customSubUrl.length === 0"
                   >生成短链接</el-button
                 >
-                <!-- <el-button style="width: 120px" type="primary" @click="clashInstall" icon="el-icon-connection">一键导入Clash</el-button> -->
               </el-form-item>
               <el-form-item label-width="0px" style="text-align: center">
                 <el-button
                   style="width: 120px"
                   size="small"
                   type="primary"
-                  @click="dialogUploadConfigVisible = true"
                   icon="el-icon-upload"
                   :loading="loading"
                   >上传配置</el-button
                 >
+
                 <el-button
                   style="width: 120px"
                   type="primary"
@@ -171,12 +167,11 @@
 </template>
 
 <script>
-const defaultBackend = import.meta.env.VITE_APP_SUBCONVERTER_DEFAULT_BACKEND;
-const tgBotLink = import.meta.env.VITE_APP_BOT_LINK;
-const remoteConfigSample = import.meta.env.VITE_APP_SUBCONVERTER_REMOTE_CONFIG;
-const gayhubRelease = import.meta.env.VITE_APP_BACKEND_RELEASE;
-
-import { api } from "../api/ShortSubUrl";
+const defaultBackend = import.meta.env.VITE_APP_SUBCONVERTER_DEFAULT_BACKEND
+const tgBotLink = import.meta.env.VITE_APP_BOT_LINK
+const remoteConfigSample = import.meta.env.VITE_APP_SUBCONVERTER_REMOTE_CONFIG
+const gayhubRelease = import.meta.env.VITE_APP_BACKEND_RELEASE
+import { api } from "../api/ShortSubUrl"
 
 export default {
   name: "SubConverter",
@@ -323,34 +318,34 @@ export default {
       sampleConfig: remoteConfigSample,
 
       needUdp: false, // 是否需要添加 udp 参数
-    };
+    }
   },
 
   methods: {
     onCopy() {
-      this.$message.success("Copied!");
+      this.$message.success("Copied!")
     },
     goToProject() {
-      window.open(import.meta.env.VITE_APP_PROJECT);
+      window.open(import.meta.env.VITE_APP_PROJECT)
     },
     saveSubUrl() {
       if (this.form.sourceSubUrl !== "") {
-        localStorage.setItem("sourceSubUrl", this.form.sourceSubUrl);
+        localStorage.setItem("sourceSubUrl", this.form.sourceSubUrl)
       }
     },
     makeUrl() {
       if (this.form.sourceSubUrl === "" || this.form.clientType === "") {
-        this.$message.error("订阅链接与客户端为必填项");
-        return false;
+        this.$message.error("订阅链接与客户端为必填项")
+        return false
       }
       // 后端地址
       let backend =
         this.form.customBackend === ""
           ? defaultBackend
-          : this.form.customBackend;
+          : this.form.customBackend
 
-      let sourceSub = this.form.sourceSubUrl;
-      sourceSub = sourceSub.replace(/(\n|\r|\n\r)/g, "|");
+      let sourceSub = this.form.sourceSubUrl
+      sourceSub = sourceSub.replace(/(\n|\r|\n\r)/g, "|")
       // 自定义子URL
       this.customSubUrl =
         backend +
@@ -359,29 +354,28 @@ export default {
         "&url=" +
         encodeURIComponent(sourceSub) +
         "&insert=" +
-        this.form.insert;
+        this.form.insert
 
       if (this.advanced === "2") {
         // 远程配置
         if (this.form.remoteConfig !== "") {
           this.customSubUrl +=
-            "&config=" + encodeURIComponent(this.form.remoteConfig);
+            "&config=" + encodeURIComponent(this.form.remoteConfig)
         }
         if (this.form.excludeRemarks !== "") {
           this.customSubUrl +=
-            "&exclude=" + encodeURIComponent(this.form.excludeRemarks);
+            "&exclude=" + encodeURIComponent(this.form.excludeRemarks)
         }
         if (this.form.includeRemarks !== "") {
           this.customSubUrl +=
-            "&include=" + encodeURIComponent(this.form.includeRemarks);
+            "&include=" + encodeURIComponent(this.form.includeRemarks)
         }
         if (this.form.filename !== "") {
           this.customSubUrl +=
-            "&filename=" + encodeURIComponent(this.form.filename);
+            "&filename=" + encodeURIComponent(this.form.filename)
         }
         if (this.form.appendType) {
-          this.customSubUrl +=
-            "&append_type=" + this.form.appendType.toString();
+          this.customSubUrl += "&append_type=" + this.form.appendType.toString()
         }
 
         this.customSubUrl +=
@@ -396,63 +390,63 @@ export default {
           "&fdn=" +
           this.form.fdn.toString() +
           "&sort=" +
-          this.form.sort.toString();
+          this.form.sort.toString()
 
         if (this.needUdp) {
-          this.customSubUrl += "&udp=" + this.form.udp.toString();
+          this.customSubUrl += "&udp=" + this.form.udp.toString()
         }
 
         if (this.form.tpl.surge.doh === true) {
-          this.customSubUrl += "&surge.doh=true";
+          this.customSubUrl += "&surge.doh=true"
         }
 
         if (this.form.clientType === "clash") {
           if (this.form.tpl.clash.doh === true) {
-            this.customSubUrl += "&clash.doh=true";
+            this.customSubUrl += "&clash.doh=true"
           }
 
-          this.customSubUrl += "&new_name=" + this.form.new_name.toString();
+          this.customSubUrl += "&new_name=" + this.form.new_name.toString()
         }
       }
 
-      this.$copyText(this.customSubUrl);
-      this.$message.success("定制订阅已复制到剪贴板");
+      this.$copyText(this.customSubUrl)
+      this.$message.success("定制订阅已复制到剪贴板")
     },
     makeShortUrl() {
       if (this.customSubUrl === "") {
-        this.$message.warning("请先生成订阅链接，再获取对应短链接");
-        return false;
+        this.$message.warning("请先生成订阅链接，再获取对应短链接")
+        return false
       }
 
-      this.loading = true;
+      this.loading = true
 
-      let data = new FormData();
-      data.append("longUrl", btoa(this.customSubUrl));
+      let data = new FormData()
+      data.append("longUrl", btoa(this.customSubUrl))
 
       api(data)
         .then((res) => {
           if (res.Code === 1 && res.ShortUrl !== "") {
-            this.curtomShortSubUrl = res.ShortUrl;
-            this.$copyText(res.ShortUrl);
-            this.$message.success("短链接已复制到剪贴板");
+            this.curtomShortSubUrl = res.ShortUrl
+            this.$copyText(res.ShortUrl)
+            this.$message.success("短链接已复制到剪贴板")
           } else {
-            this.$message.error("短链接获取失败：" + res.Message);
+            this.$message.error("短链接获取失败：" + res.Message)
           }
         })
         .catch(() => {
-          this.$message.error("短链接获取失败");
+          this.$message.error("短链接获取失败")
         })
         .finally(() => {
-          this.loading = false;
-        });
+          this.loading = false
+        })
     },
     clashInstall() {
       if (this.customSubUrl === "") {
-        this.$message.error("请先填写必填项，生成订阅链接");
-        return false;
+        this.$message.error("请先填写必填项，生成订阅链接")
+        return false
       }
 
-      const url = "clash://install-config?url=";
+      const url = "clash://install-config?url="
       window.open(
         url +
           encodeURIComponent(
@@ -460,30 +454,30 @@ export default {
               ? this.curtomShortSubUrl
               : this.customSubUrl
           )
-      );
+      )
     },
     gotoGayhub() {
-      window.open(gayhubRelease);
+      window.open(gayhubRelease)
     },
     backendSearch(queryString, cb) {
-      let backends = this.options.backendOptions;
+      let backends = this.options.backendOptions
 
       let results = queryString
         ? backends.filter(this.createFilter(queryString))
-        : backends;
+        : backends
 
       // 调用 callback 返回建议列表的数据
-      cb(results);
+      cb(results)
     },
     createFilter(queryString) {
       return (candidate) => {
         return (
           candidate.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
-        );
-      };
+        )
+      }
     },
   },
-};
+}
 </script>
 
 <style scoped lang="scss"></style>

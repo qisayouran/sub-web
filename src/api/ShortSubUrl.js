@@ -1,5 +1,5 @@
-import service from "../util/request";
-let url = import.meta.env.VITE_APP_MYURLS_DEFAULT_BACKEND + "/short";
+import service from "../util/request"
+let url = import.meta.env.VITE_APP_MYURLS_DEFAULT_BACKEND + "/short"
 
 export function api(data) {
   return service.request({
@@ -9,5 +9,5 @@ export function api(data) {
       "Content-Type": "application/form-data; charset=utf-8",
     },
     data,
-  });
+  })
 }
