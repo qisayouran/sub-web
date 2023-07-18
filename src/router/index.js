@@ -10,7 +10,7 @@ const router = new VueRouter({
     {
       path: "/",
       name: "SubConverter",
-      component: () => import("..Subconverter.vue"),
+      component: () => import("./../views/Subconverter.vue"),
     },
   ],
 })
