@@ -82,13 +82,13 @@
               <div v-if="advanced === '2'">
                 <el-form-item label="Include:">
                   <el-input
-                    v-model="form.includeRemarks"
+                    v-model="form.includeKeywords"
                     placeholder="节点名包含的关键字，支持正则"
                   />
                 </el-form-item>
                 <el-form-item label="Exclude:">
                   <el-input
-                    v-model="form.excludeRemarks"
+                    v-model="form.excludeKeywords"
                     placeholder="节点名不包含的关键字，支持正则"
                   />
                 </el-form-item>
@@ -103,10 +103,12 @@
                     <el-col>
                       <el-checkbox
                         v-model="form.nodeList"
+                        size="mini"
                         label="输出为 Node List"
                         border
                       ></el-checkbox>
                     </el-col>
+
                     <el-popover placement="bottom" v-model="form.extraset">
                       <el-row>
                         <el-checkbox
@@ -145,8 +147,11 @@
                           label="过滤非法节点"
                         ></el-checkbox>
                       </el-row>
-                      <el-button slot="reference">更多选项</el-button>
+                      <el-button size="mini" slot="reference"
+                        >更多选项</el-button
+                      >
                     </el-popover>
+
                     <el-popover placement="bottom" style="margin-left: 10px">
                       <el-row>
                         <el-checkbox
@@ -166,7 +171,9 @@
                           label="网易云"
                         ></el-checkbox>
                       </el-row>
-                      <el-button slot="reference">定制功能</el-button>
+                      <el-button size="mini" slot="reference"
+                        >定制功能</el-button
+                      >
                     </el-popover>
                   </el-row>
                 </el-form-item>
@@ -272,7 +279,6 @@ export default {
     return {
       backendVersion: "2.0",
       advanced: "1",
-
       // 是否为 PC 端
       isPC: true,
       options: {
@@ -282,13 +288,14 @@ export default {
       },
 
       form: {
-        sourceSubUrl: "",
-        clientType: "clash",
+        sourceSubUrl: "", //用户订阅
+        clientType: "clash", //订阅类型
         customBackend: "", //后端配置
-        remoteConfig: "",
-        excludeRemarks: "", //排除备注
-        includeRemarks: "", //包含备注
+        remoteConfig: "", //远程配置
+        includeKeywords: "", //包含备注
+        excludeKeywords: "", //排除备注
         filename: "", //文件名
+
         emoji: true,
         nodeList: false,
         extraset: false,
@@ -297,7 +304,7 @@ export default {
         tfo: false,
         scv: true,
         fdn: false,
-        appendType: false, //追加类型
+        appendType: false, //节点类型
         insert: false, // 是否插入默认订阅的节点，对应配置项 insert_url
         new_name: true, // 是否使用 Clash 新字段
 
@@ -362,20 +369,19 @@ export default {
         encodeURIComponent(sourceSub) +
         "&insert=" +
         this.form.insert
-
+      if (this.form.remoteConfig !== "") {
+        this.customSubUrl +=
+          "&config=" + encodeURIComponent(this.form.remoteConfig)
+      }
+      console.log(this.form.insert)
       if (this.advanced === "2") {
-        // 远程配置
-        if (this.form.remoteConfig !== "") {
+        if (this.form.includeKeywords !== "") {
           this.customSubUrl +=
-            "&config=" + encodeURIComponent(this.form.remoteConfig)
+            "&include=" + encodeURIComponent(this.form.includeKeywords)
         }
-        if (this.form.excludeRemarks !== "") {
+        if (this.form.excludeKeywords !== "") {
           this.customSubUrl +=
-            "&exclude=" + encodeURIComponent(this.form.excludeRemarks)
-        }
-        if (this.form.includeRemarks !== "") {
-          this.customSubUrl +=
-            "&include=" + encodeURIComponent(this.form.includeRemarks)
+            "&exclude=" + encodeURIComponent(this.form.excludeKeywords)
         }
         if (this.form.filename !== "") {
           this.customSubUrl +=
@@ -411,7 +417,6 @@ export default {
           if (this.form.tpl.clash.doh === true) {
             this.customSubUrl += "&clash.doh=true"
           }
-
           this.customSubUrl += "&new_name=" + this.form.new_name.toString()
         }
       }
