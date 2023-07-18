@@ -177,7 +177,7 @@ export default {
   name: "SubConverter",
   data() {
     return {
-      backendVersion: "",
+      backendVersion: "2.0",
       advanced: "1",
 
       // 是否为 PC 端
