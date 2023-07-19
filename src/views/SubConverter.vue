@@ -319,7 +319,6 @@
 const defaultBackend = import.meta.env.VITE_APP_SUBCONVERTER_DEFAULT_BACKEND
 const tgBotLink = import.meta.env.VITE_APP_BOT_LINK
 const remoteConfigSample = import.meta.env.VITE_APP_SUBCONVERTER_REMOTE_CONFIG
-const gayhubRelease = import.meta.env.VITE_APP_BACKEND_RELEASE
 import { api } from "../api/ShortSubUrlApi"
 import remote from "@/config/remoteConfig"
 import clientTypes from "@/config/clientTypesConfig"
@@ -389,9 +388,6 @@ export default {
   methods: {
     onCopy() {
       this.$message.success("Copied!")
-    },
-    gotoGayhub() {
-      window.open(gayhubRelease)
     },
     goToProject() {
       window.open(import.meta.env.VITE_APP_PROJECT)
