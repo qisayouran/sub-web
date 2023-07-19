@@ -1,12 +1,10 @@
 <script setup>
 import { onBeforeMount } from "vue"
-import { useThemeStore } from "./stores/counter"
-const theme = useThemeStore()
 
 onBeforeMount(() => {
   document
     .getElementsByTagName("html")[0]
-    .setAttribute("class", theme.selectTheme)
+    .setAttribute("class", localStorage.getItem("theme"))
 })
 </script>
 

@@ -38,7 +38,11 @@
                   content="自动切换主题"
                   placement="bottom-end"
                 >
-                  <el-button icon="el-icon-refresh" circle></el-button>
+                  <el-button
+                    icon="el-icon-refresh"
+                    circle
+                    @click="autoTheme"
+                  ></el-button>
                 </el-tooltip>
                 {{ backendVersion }}
               </div>
@@ -350,8 +354,6 @@ import { api } from "../api/ShortSubUrlApi"
 import remote from "@/config/remoteConfig"
 import clientTypes from "@/config/clientTypesConfig"
 import backendOptions from "@/config/backendConfig"
-import { useThemeStore } from "../stores/counter"
-const theme = useThemeStore()
 export default {
   name: "SubConverter",
   data() {
@@ -425,9 +427,7 @@ export default {
       window.open(import.meta.env.VITE_APP_PROJECT)
     },
     saveSubUrl() {
-      if (this.form.sourceSubUrl !== "") {
-        localStorage.setItem("sourceSubUrl", this.form.sourceSubUrl)
-      }
+      localStorage.setItem("sourceSubUrl", this.form.sourceSubUrl)
     },
     makeUrl() {
       if (this.form.sourceSubUrl === "" || this.form.clientType === "") {
@@ -601,17 +601,25 @@ export default {
         })
     },
     changeTheme() {
-      theme.changeTheme()
+      if (this.selectTheme) {
+        localStorage.setItem("theme", "dark")
+      } else {
+        localStorage.setItem("theme", "defult")
+      }
       document
         .getElementsByTagName("html")[0]
-        .setAttribute("class", theme.selectTheme)
+        .setAttribute("class", localStorage.getItem("theme"))
+    },
+    autoTheme() {
+      localStorage.removeItem("theme")
     },
   },
   mounted() {},
   created() {
-    if (theme.selectTheme == "dark") {
+    if (localStorage.getItem("theme") == "dark") {
       this.selectTheme = !this.selectTheme
     }
+    this.form.sourceSubUrl = localStorage.getItem("sourceSubUrl")
   },
 }
 </script>
