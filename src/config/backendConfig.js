@@ -1,12 +1,12 @@
 //后端配置
 export default [
   {
-    label: "网站作者提供专属后端",
-    value: "https://api.qisa.icu/sub?",
-  },
-  {
     label: "つつの作者提供专属后端",
     value: "https://api.tsutsu.one/sub?",
+  },
+  {
+    label: "网站作者提供专属后端",
+    value: "https://api.qisa.icu/sub?",
   },
   {
     label: "sub.id9.cc(品云提供-稳定)",
