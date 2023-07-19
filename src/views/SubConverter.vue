@@ -1,18 +1,22 @@
 <template>
-  <div style="margin: 0 10px">
-    <el-row style="margin-top: 10px">
-      <el-col>
+  <div style="margin: 15px 10px">
+    <el-row type="flex" justify="center" :align="botton">
+      <el-col :xs="24" :sm="20" :md="18" :lg="12" :xl="16">
         <el-card>
           <div slot="header">
-            订阅转换
-            <svg-icon
-              icon-class="github"
-              style="margin-left: 20px"
-              @click="goToProject"
-            />
-            <div style="display: inline-block; position: absolute; right: 20px">
-              {{ backendVersion }}
-            </div>
+            <el-row type="flex">
+              <el-col>
+                订阅转换
+                <svg-icon
+                  icon-class="github"
+                  style="margin-left: 20px"
+                  @click="goToProject"
+                />
+              </el-col>
+              <div style="display: inline-block; right: 20px">
+                {{ backendVersion }}
+              </div>
+            </el-row>
           </div>
           <el-container>
             <el-form :model="form" label-width="80px" style="width: 100%">
@@ -41,19 +45,19 @@
               </el-form-item>
 
               <el-form-item label="后端地址:">
-                <el-autocomplete
+                <el-select
                   style="width: 100%"
+                  allow-create
+                  filterable
                   v-model="form.customBackend"
-                  :fetch-suggestions="backendSearch"
-                  placeholder="http://127.0.0.1:25500/sub?"
                 >
-                  <el-button
-                    slot="append"
-                    @click="gotoGayhub"
-                    icon="el-icon-link"
-                    >前往项目仓库</el-button
-                  >
-                </el-autocomplete>
+                  <el-option
+                    v-for="item in options.backendOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </el-select>
               </el-form-item>
 
               <el-form-item label="远程配置:">
@@ -324,7 +328,7 @@ export default {
   name: "SubConverter",
   data() {
     return {
-      backendVersion: "2.0",
+      backendVersion: "2.0.1",
       advanced: "1",
       // 是否为 PC 端
       isPC: true,
@@ -337,7 +341,7 @@ export default {
       form: {
         sourceSubUrl: "", //用户订阅
         clientType: "clash", //订阅类型
-        customBackend: "", //后端配置
+        customBackend: "https://api.tsutsu.one/sub?", //后端配置
         remoteConfig: "", //远程配置
         includeKeywords: "", //包含备注
         excludeKeywords: "", //排除备注
@@ -529,8 +533,6 @@ export default {
     },
     createFilter(queryString) {
       return (candidate) => {
-        console.log(candidate)
-
         return (
           candidate.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
         )

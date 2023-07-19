@@ -10,21 +10,6 @@ export default [
     ],
   },
   {
-    label: "universal",
-    options: [
-      {
-        label: "No-Urltest",
-        value:
-          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/no-urltest.ini",
-      },
-      {
-        label: "Urltest",
-        value:
-          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/urltest.ini",
-      },
-    ],
-  },
-  {
     label: "定制",
     options: [
       {
@@ -141,6 +126,21 @@ export default [
         label: "ACL_多模式精简版",
         value:
           "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini_MultiMode.ini",
+      },
+    ],
+  },
+  {
+    label: "universal",
+    options: [
+      {
+        label: "No-Urltest",
+        value:
+          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/no-urltest.ini",
+      },
+      {
+        label: "Urltest",
+        value:
+          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/urltest.ini",
       },
     ],
   },
