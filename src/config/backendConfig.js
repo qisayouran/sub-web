@@ -1,7 +1,11 @@
 //后端配置
 export default [
   {
-    label: "つつの作者提供专属后端 (六核负载均衡-支持IPv4/IPv6)",
+    label: "网站作者提供专属后端",
+    value: "https://api.qisa.icu/sub?",
+  },
+  {
+    label: "つつの作者提供专属后端",
     value: "https://api.tsutsu.one/sub?",
   },
   {
