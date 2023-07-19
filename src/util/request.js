@@ -3,7 +3,7 @@ const service = axiox.create({
   baseURL: "/api",
   timeout: 30000,
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "application/form-data; charset=utf-8",
   },
 })
 /* 请求拦截器 */

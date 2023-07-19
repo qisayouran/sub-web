@@ -221,7 +221,6 @@
                 <el-button
                   style="width: 120px"
                   type="danger"
-                  size="small"
                   @click="makeUrl"
                   :disabled="form.sourceSubUrl.length === 0"
                   >生成订阅链接</el-button
@@ -229,7 +228,6 @@
                 <el-button
                   style="width: 120px"
                   type="danger"
-                  size="small"
                   @click="makeShortUrl"
                   :loading="loading"
                   :disabled="customSubUrl.length === 0"
@@ -239,8 +237,8 @@
               <el-form-item label-width="0px" style="text-align: center">
                 <el-button
                   style="width: 120px"
-                  size="small"
                   type="primary"
+                  @click="dialogUploadConfigVisible = true"
                   icon="el-icon-upload"
                   :loading="loading"
                   >上传配置</el-button
@@ -249,7 +247,6 @@
                 <el-button
                   style="width: 120px"
                   type="primary"
-                  size="small"
                   @click="clashInstall"
                   icon="el-icon-connection"
                   :disabled="customSubUrl.length === 0"
@@ -261,6 +258,56 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <el-dialog
+      :visible.sync="dialogUploadConfigVisible"
+      :show-close="false"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+      width="700px"
+    >
+      <div slot="title">
+        远程配置上传
+        <el-popover trigger="hover" placement="right" style="margin-left: 10px">
+          <el-link
+            type="primary"
+            :href="sampleConfig"
+            target="_blank"
+            icon="el-icon-info"
+            >参考配置</el-link
+          >
+          <i class="el-icon-question" slot="reference"></i>
+        </el-popover>
+      </div>
+
+      <el-form label-position="left">
+        <el-form-item prop="uploadConfig">
+          <el-input
+            v-model="uploadConfig"
+            type="textarea"
+            :autosize="{ minRows: 15, maxRows: 15 }"
+            maxlength="5000"
+            show-word-limit
+          ></el-input>
+        </el-form-item>
+      </el-form>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button
+          @click="
+            uploadConfig = ''
+            dialogUploadConfigVisible = false
+          "
+          >取 消</el-button
+        >
+        <el-button
+          type="primary"
+          @click="confirmUploadConfig"
+          :disabled="uploadConfig.length === 0"
+          >确 定</el-button
+        >
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -269,7 +316,7 @@ const defaultBackend = import.meta.env.VITE_APP_SUBCONVERTER_DEFAULT_BACKEND
 const tgBotLink = import.meta.env.VITE_APP_BOT_LINK
 const remoteConfigSample = import.meta.env.VITE_APP_SUBCONVERTER_REMOTE_CONFIG
 const gayhubRelease = import.meta.env.VITE_APP_BACKEND_RELEASE
-import { api } from "../api/ShortSubUrl"
+import { api } from "../api/ShortSubUrlApi"
 import remote from "@/config/remoteConfig"
 import clientTypes from "@/config/clientTypesConfig"
 import backendOptions from "@/config/backendConfig"
@@ -338,6 +385,9 @@ export default {
   methods: {
     onCopy() {
       this.$message.success("Copied!")
+    },
+    gotoGayhub() {
+      window.open(gayhubRelease)
     },
     goToProject() {
       window.open(import.meta.env.VITE_APP_PROJECT)
@@ -434,8 +484,8 @@ export default {
 
       let data = new FormData()
       data.append("longUrl", btoa(this.customSubUrl))
-
-      api(data)
+      api
+        .shortUrl(data)
         .then((res) => {
           if (res.Code === 1 && res.ShortUrl !== "") {
             this.curtomShortSubUrl = res.ShortUrl
@@ -457,7 +507,6 @@ export default {
         this.$message.error("请先填写必填项，生成订阅链接")
         return false
       }
-
       const url = "clash://install-config?url="
       window.open(
         url +
@@ -467,9 +516,6 @@ export default {
               : this.customSubUrl
           )
       )
-    },
-    gotoGayhub() {
-      window.open(gayhubRelease)
     },
     backendSearch(queryString, cb) {
       let backends = this.options.backendOptions
@@ -489,6 +535,40 @@ export default {
           candidate.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
         )
       }
+    },
+    confirmUploadConfig() {
+      if (this.uploadConfig === "") {
+        this.$message.warning("远程配置不能为空")
+        return false
+      }
+      this.loading = true
+      let data = new FormData()
+      data.append("password", this.uploadPassword)
+      data.append("config", this.uploadConfig)
+      api
+        .uploadConfig(data)
+        .then((res) => {
+          console.log("成功")
+          console.log(res)
+          if (res.code === 0 && res.data.url !== "") {
+            this.$message.success(
+              "远程配置上传成功，配置链接已复制到剪贴板，有效期三个月望知悉"
+            )
+            // 自动填充至『表单-远程配置』
+            this.form.remoteConfig = res.data.url
+            this.$copyText(this.form.remoteConfig)
+
+            this.dialogUploadConfigVisible = false
+          } else {
+            this.$message.error("远程配置上传失败: " + res.msg)
+          }
+        })
+        .catch(() => {
+          this.$message.error("远程配置上传失败")
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
   },
   mounted() {},

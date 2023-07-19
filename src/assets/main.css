@@ -2,3 +2,44 @@
   margin: 0;
   padding: 0;
 }
+
+#app {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+* {
+  font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  user-select: none;
+}
+
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+  width: 4px;
+}
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3);
+  box-shadow: rgba(191, 255, 240, 0.3);
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #ccc;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.9);
+  box-shadow: rgba(0, 0, 0, 0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(211, 173, 209, 0.4);
+  -webkit-box-shadow: rgba(0, 0, 0, 0.9);
+  box-shadow: rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  border-radius: 10px;
+  background: #82c1ff;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.9);
+  box-shadow: rgba(0, 0, 0, 0.5);
+}
