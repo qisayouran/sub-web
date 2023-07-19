@@ -1,19 +1,45 @@
 <template>
   <div style="margin: 15px 10px">
-    <el-row type="flex" justify="center" :align="botton">
+    <el-row type="flex" justify="center" align="bottom">
       <el-col :xs="24" :sm="20" :md="18" :lg="12" :xl="16">
         <el-card>
           <div slot="header">
-            <el-row type="flex">
-              <el-col>
-                订阅转换
+            <el-row type="flex" align="center">
+              <el-col
+                style="display: flex; align-items: center; font-size: 18px"
+              >
+                奇飒悠然@订阅转换
                 <svg-icon
                   icon-class="github"
-                  style="margin-left: 20px"
+                  style="margin-left: 20px; height: 20px; width: 20px"
                   @click="goToProject"
                 />
               </el-col>
-              <div style="display: inline-block; right: 20px">
+
+              <div
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  right: 20px;
+                "
+              >
+                <el-switch
+                  v-model="selectTheme"
+                  @change="changeTheme"
+                  active-color="#13ce66"
+                  inactive-color="#ff4949"
+                >
+                </el-switch>
+                <el-tooltip
+                  style="margin: 0 10px"
+                  class="item"
+                  effect="dark"
+                  content="自动切换主题"
+                  placement="bottom-end"
+                >
+                  <el-button icon="el-icon-refresh" circle></el-button>
+                </el-tooltip>
                 {{ backendVersion }}
               </div>
             </el-row>
@@ -319,10 +345,13 @@
 const defaultBackend = import.meta.env.VITE_APP_SUBCONVERTER_DEFAULT_BACKEND
 const tgBotLink = import.meta.env.VITE_APP_BOT_LINK
 const remoteConfigSample = import.meta.env.VITE_APP_SUBCONVERTER_REMOTE_CONFIG
+const gayhubRelease = import.meta.env.VITE_APP_BACKEND_RELEASE
 import { api } from "../api/ShortSubUrlApi"
 import remote from "@/config/remoteConfig"
 import clientTypes from "@/config/clientTypesConfig"
 import backendOptions from "@/config/backendConfig"
+import { useThemeStore } from "../stores/counter"
+const theme = useThemeStore()
 export default {
   name: "SubConverter",
   data() {
@@ -357,7 +386,6 @@ export default {
         appendType: false, //节点类型
         insert: false, // 是否插入默认订阅的节点，对应配置项 insert_url
         new_name: true, // 是否使用 Clash 新字段
-
         // tpl 定制功能
         tpl: {
           surge: {
@@ -382,12 +410,16 @@ export default {
       sampleConfig: remoteConfigSample,
 
       needUdp: false, // 是否需要添加 udp 参数
+      selectTheme: false,
     }
   },
 
   methods: {
     onCopy() {
       this.$message.success("Copied!")
+    },
+    gotoGayhub() {
+      window.open(gayhubRelease)
     },
     goToProject() {
       window.open(import.meta.env.VITE_APP_PROJECT)
@@ -568,8 +600,19 @@ export default {
           this.loading = false
         })
     },
+    changeTheme() {
+      theme.changeTheme()
+      document
+        .getElementsByTagName("html")[0]
+        .setAttribute("class", theme.selectTheme)
+    },
   },
   mounted() {},
+  created() {
+    if (theme.selectTheme == "dark") {
+      this.selectTheme = !this.selectTheme
+    }
+  },
 }
 </script>
 
