@@ -340,7 +340,7 @@ export default {
       form: {
         sourceSubUrl: "", //用户订阅
         clientType: "clash", //订阅类型
-        customBackend: "https://api.qisa.icu/sub?", //后端配置
+        customBackend: "https://api.tsutsu.one/sub?", //后端配置
         remoteConfig: "", //远程配置
         includeKeywords: "", //包含备注
         excludeKeywords: "", //排除备注
