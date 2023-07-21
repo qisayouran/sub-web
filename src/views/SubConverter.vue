@@ -611,7 +611,7 @@ export default {
         .setAttribute("class", localStorage.getItem("theme"))
     },
     autoTheme() {
-      localStorage.removeItem("theme")
+      localStorage.setItem("theme", "")
     },
   },
   mounted() {},
