@@ -13,6 +13,7 @@ const anhei = () => {
     getLocalTheme == "undefined" ||
     getLocalTheme == ""
   ) {
+    console.log("object")
     //根据当前时间来判断，用来对付QQ等不支持媒体变量查询的浏览器
     if (new Date().getHours() >= 19 || new Date().getHours() < 7) {
       document.getElementsByTagName("html")[0].setAttribute("class", "dark")
@@ -29,17 +30,17 @@ const anhei = () => {
   }
 }
 onBeforeMount(() => {
-  anhei()
-  let lightMedia = window.matchMedia("(prefers-color-scheme: light)")
-  let darkMedia = window.matchMedia("(prefers-color-scheme: dark)")
-  let callback = (e) => {
-    if (e.matches) {
-      anhei()
-      console.log("object")
-    }
-  }
-  lightMedia.addEventListener("change", callback)
-  darkMedia.addEventListener("change", callback)
+  // anhei()
+  // let lightMedia = window.matchMedia("(prefers-color-scheme: light)")
+  // let darkMedia = window.matchMedia("(prefers-color-scheme: dark)")
+  // let callback = (e) => {
+  //   if (e.matches) {
+  //     anhei()
+  //     console.log("object")
+  //   }
+  // }
+  // lightMedia.addEventListener("change", callback)
+  // darkMedia.addEventListener("change", callback)
 })
 </script>
 
