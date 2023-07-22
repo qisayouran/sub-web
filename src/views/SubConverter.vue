@@ -616,10 +616,10 @@ export default {
   },
   mounted() {},
   created() {
-    if (localStorage.getItem("theme") == "dark") {
-      this.selectTheme = !this.selectTheme
-    }
-    this.form.sourceSubUrl = localStorage.getItem("sourceSubUrl")
+    // if (localStorage.getItem("theme") == "dark") {
+    //   this.selectTheme = !this.selectTheme
+    // }
+    // this.form.sourceSubUrl = localStorage.getItem("sourceSubUrl")
   },
 }
 </script>
