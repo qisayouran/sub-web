@@ -1,29 +1,20 @@
 <template>
-  <div style="margin: 15px 10px">
+  <div class="container">
     <el-row type="flex" justify="center" align="bottom">
       <el-col :xs="24" :sm="20" :md="18" :lg="12" :xl="16">
-        <el-card>
+        <el-card class="card">
           <div slot="header">
             <el-row type="flex" align="center">
-              <el-col
-                style="display: flex; align-items: center; font-size: 18px"
-              >
+              <el-col class="title">
                 奇飒悠然@订阅转换
                 <svg-icon
                   icon-class="github"
-                  style="margin-left: 20px; height: 20px; width: 20px"
+                  class="icon"
                   @click="goToProject"
                 />
               </el-col>
 
-              <div
-                style="
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  right: 20px;
-                "
-              >
+              <div class="theme">
                 <el-switch
                   v-model="selectTheme"
                   @change="changeTheme"
@@ -213,8 +204,6 @@
                 </el-form-item>
               </div>
 
-              <div style="margin-top: 50px"></div>
-
               <el-divider content-position="center">
                 <i class="el-icon-magic-stick"> </i>
               </el-divider>
@@ -302,7 +291,7 @@
     >
       <div slot="title">
         远程配置上传
-        <el-popover trigger="hover" placement="right" style="margin-left: 10px">
+        <el-popover trigger="hover" placement="right" class="left_10">
           <el-link
             type="primary"
             :href="sampleConfig"
@@ -628,4 +617,75 @@ export default {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.card {
+  background-color: var(--theme-card-background);
+}
+
+.icon {
+  margin-left: 20px;
+  height: 20px;
+  width: 20px;
+}
+.container {
+  margin: 15px 10px;
+}
+
+.title {
+  color: var(--theme-color);
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+}
+
+.theme {
+  color: var(--theme-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 20px;
+}
+
+.el-radio {
+  color: var(--theme-color);
+}
+
+::v-deep {
+  .el-form-item__label {
+    color: var(--theme-color);
+  }
+  .el-textarea__inner {
+    background-color: var(--theme-text-background);
+    color: var(--theme-text-color);
+  }
+  .el-input__inner {
+    background-color: var(--theme-text-background);
+    color: var(--theme-text-color);
+  }
+  .el-input.is-disabled .el-input__inner {
+    background-color: var(--theme-text-background);
+    color: var(--theme-text-color);
+  }
+  .el-input-group__append button.el-button {
+    background-color: var(--theme-botton-background);
+    color: var(--theme-color);
+  }
+  .el-checkbox__label {
+    color: var(--theme-text-color);
+  }
+  .el-dialog__header {
+    color: var(--theme-text-color);
+    background-color: var(--theme-background);
+  }
+  .el-dialog__body {
+    color: var(--theme-text-color);
+    background-color: var(--theme-background);
+  }
+  .el-textarea .el-input__count {
+    background: var(--theme-background);
+  }
+  .el-dialog__footer {
+    background: var(--theme-background);
+  }
+}
+</style>
