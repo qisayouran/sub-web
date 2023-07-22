@@ -427,9 +427,7 @@ export default {
       window.open(import.meta.env.VITE_APP_PROJECT)
     },
     saveSubUrl() {
-      if (this.form.sourceSubUrl !== "") {
-        localStorage.setItem("sourceSubUrl", this.form.sourceSubUrl)
-      }
+      localStorage.setItem("sourceSubUrl", this.form.sourceSubUrl)
     },
     makeUrl() {
       if (this.form.sourceSubUrl === "" || this.form.clientType === "") {
