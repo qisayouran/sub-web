@@ -618,10 +618,11 @@ export default {
   created() {
     let getLocalTheme = localStorage.getItem("theme")
     let getSourceSubUrl = localStorage.getItem("sourceSubUrl")
-    console.log(getLocalTheme, getSourceSubUrl)
-    if (getLocalTheme != null || getSourceSubUrl != null) {
+    if (getLocalTheme != null) {
       if (getLocalTheme == "dark") this.selectTheme = !this.selectTheme
-      this.form.sourceSubUrl = localStorage.getItem("sourceSubUrl")
+    }
+    if (getSourceSubUrl != null) {
+      this.form.sourceSubUrl = getSourceSubUrl
     }
   },
 }
