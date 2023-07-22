@@ -5,7 +5,6 @@ const anhei = () => {
   const getLocalTheme = localStorage.getItem("theme")
   const lightMode = window.matchMedia("(prefers-color-scheme: light)")
   const darkMode = window.matchMedia("(prefers-color-scheme: dark)")
-  console.log(lightMode, darkMode)
   if (getLocalTheme) {
     document
       .getElementsByTagName("html")[0]
