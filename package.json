@@ -13,7 +13,6 @@
     "element-ui": "^2.15.13",
     "fast-glob": "^3.3.0",
     "pinia": "^2.0.16",
-    "pinia-plugin-persistedstate": "^3.1.0",
     "register-service-worker": "^1.7.2",
     "sass": "^1.63.6",
     "vite-plugin-svg-icons": "^2.0.1",
