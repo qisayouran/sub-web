@@ -7,6 +7,11 @@ export default [
         label: "不选，由接口方提供",
         value: "",
       },
+      {
+        label: "qisa-精简分组-含国内分流",
+        value:
+          "https://cdn.jsdelivr.net/gh/qisayouran/cdn@master/clash-config/qisa.ini",
+      },
     ],
   },
   {
