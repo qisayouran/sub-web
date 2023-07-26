@@ -1,8 +1,22 @@
 // 远程配置
 export default [
   {
+    label: "默认",
+    options: [
+      {
+        label: "不选，由接口提供方提供",
+        value: "",
+      },
+    ],
+  },
+  {
     label: "专属规则",
     options: [
+      {
+        label: "QISA_精简分组",
+        value:
+          "https://cdn.jsdelivr.net/gh/qisayouran/cdn@master/clash-config/qisa-mini.ini",
+      },
       {
         label: "QISA_全分组",
         value:
@@ -12,11 +26,6 @@ export default [
         label: "QISA_全分组_地区自动选择",
         value:
           "https://cdn.jsdelivr.net/gh/qisayouran/cdn@master/clash-config/qisa-full-urltest.ini",
-      },
-      {
-        label: "QISA_精简分组_含国内分流",
-        value:
-          "https://cdn.jsdelivr.net/gh/qisayouran/cdn@master/clash-config/qisa-mini.ini",
       },
     ],
   },

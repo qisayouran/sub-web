@@ -361,7 +361,8 @@ export default {
         sourceSubUrl: "", //用户订阅
         clientType: "clash", //订阅类型
         customBackend: "https://api.tsutsu.one/sub?", //后端配置
-        remoteConfig: "", //远程配置
+        remoteConfig:
+          "https://cdn.jsdelivr.net/gh/qisayouran/cdn@master/clash-config/qisa-mini.ini", //远程配置
         includeKeywords: "", //包含备注
         excludeKeywords: "", //排除备注
         filename: "", //文件名
@@ -603,7 +604,6 @@ export default {
       localStorage.setItem("theme", "")
     },
   },
-  mounted() {},
   created() {
     let getLocalTheme = localStorage.getItem("theme")
     let getSourceSubUrl = localStorage.getItem("sourceSubUrl")
