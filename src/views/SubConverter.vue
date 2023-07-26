@@ -347,10 +347,9 @@ export default {
   name: "SubConverter",
   data() {
     return {
-      backendVersion: "2.0.1",
+      backendVersion: "",
       advanced: "1",
       // 是否为 PC 端
-      isPC: true,
       options: {
         clientTypes: clientTypes,
         backendOptions: backendOptions,
