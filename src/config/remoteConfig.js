@@ -4,17 +4,17 @@ export default [
     label: "专属规则",
     options: [
       {
-        label: "全分组",
+        label: "QISA_全分组",
         value:
           "https://cdn.jsdelivr.net/gh/qisayouran/cdn@latest/clash-config/qisa-full.ini",
       },
       {
-        label: "全分组-地区自动选择",
+        label: "QISA_全分组_地区自动选择",
         value:
           "https://cdn.jsdelivr.net/gh/qisayouran/cdn@latest/clash-config/qisa-full-urltest.ini",
       },
       {
-        label: "精简分组-含国内分流",
+        label: "QISA_精简分组_含国内分流",
         value:
           "https://cdn.jsdelivr.net/gh/qisayouran/cdn@latest/clash-config/qisa-mini.ini",
       },
