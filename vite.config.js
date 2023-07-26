@@ -9,6 +9,11 @@ import path from "path"
 // https://vitejs.dev/config/
 export default defineConfig({
   envDir: "env",
+  server: {
+    // 指定源代码目录
+    src: "src",
+    host: "0.0.0.0",
+  },
   plugins: [
     vue2(),
     legacy({
@@ -25,9 +30,5 @@ export default defineConfig({
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
-  },
-  server: {
-    // 指定源代码目录
-    src: "src",
   },
 })
