@@ -168,11 +168,6 @@ export default [
     label: "特殊",
     options: [
       {
-        label: "NeteaseUnblock(仅规则，No-Urltest)",
-        value:
-          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/special/netease.ini",
-      },
-      {
         label: "Basic(仅GEOIP CN + Final)",
         value:
           "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/special/basic.ini",
