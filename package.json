@@ -9,6 +9,7 @@
     "format": "prettier --write \"src/**/*.vue\" \"**/*.js\""
   },
   "dependencies": {
+    "@vercel/analytics": "^1.0.1",
     "axios": "^1.4.0",
     "element-ui": "^2.15.13",
     "fast-glob": "^3.3.0",
