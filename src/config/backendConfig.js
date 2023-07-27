@@ -9,10 +9,6 @@ export default [
     value: "https://api.qisa.icu/sub?",
   },
   {
-    label: "sub.id9.cc(品云提供-稳定)",
-    value: "https://sub.id9.cc/sub?",
-  },
-  {
     label: "sub.xeton.dev(subconverter作者提供-稳定)",
     value: "https://sub.xeton.dev/sub?",
   },
