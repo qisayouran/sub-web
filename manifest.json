@@ -3,7 +3,7 @@
   "short_name": "App",
   "icons": [
     {
-      "src": "/public/logo.png",
+      "src": "/logo.png",
       "type": "image/png",
       "sizes": "192x192"
     }
