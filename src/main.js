@@ -7,7 +7,6 @@ import "./assets/css/main.scss"
 import "@/plugins/element-ui"
 import "@/plugins/clipboard"
 import "@/plugins/svg-icon"
-import "@/plugins/analytics"
 
 Vue.use(PiniaVuePlugin)
 Vue.config.productionTip = false
