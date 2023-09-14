@@ -359,7 +359,7 @@ export default {
       form: {
         sourceSubUrl: "", //用户订阅
         clientType: "clash", //订阅类型
-        customBackend: "https://api.tsutsu.one/sub?", //后端配置
+        customBackend: backendOptions[0].value, //后端配置
         remoteConfig:
           "https://cdn.jsdelivr.net/gh/qisayouran/cdn@master/clash-config/qisa-mini.ini", //远程配置
         includeKeywords: "", //包含备注
