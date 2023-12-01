@@ -361,7 +361,7 @@ export default {
         clientType: "clash", //订阅类型
         customBackend: backendOptions[0].value, //后端配置
         remoteConfig:
-          "https://cdn.jsdelivr.net/gh/qisayouran/cdn@master/clash-config/qisa-mini.ini", //远程配置
+          "https://cdn.statically.io/gh/qisayouran/cdn/master/clash-config/qisa-mini.ini", //远程配置
         includeKeywords: "", //包含备注
         excludeKeywords: "", //排除备注
         filename: "", //文件名
@@ -404,7 +404,17 @@ export default {
       selectTheme: false,
     }
   },
-
+  created() {
+    let getLocalTheme = localStorage.getItem("theme")
+    let getSourceSubUrl = localStorage.getItem("sourceSubUrl")
+    if (getLocalTheme != null) {
+      if (getLocalTheme == "dark") this.selectTheme = !this.selectTheme
+    }
+    if (getSourceSubUrl != null) {
+      this.form.sourceSubUrl = getSourceSubUrl
+    }
+    this.form.remoteConfig = remote[1].options[0].value
+  },
   methods: {
     onCopy() {
       this.$message.success("Copied!")
@@ -602,16 +612,6 @@ export default {
     autoTheme() {
       localStorage.setItem("theme", "")
     },
-  },
-  created() {
-    let getLocalTheme = localStorage.getItem("theme")
-    let getSourceSubUrl = localStorage.getItem("sourceSubUrl")
-    if (getLocalTheme != null) {
-      if (getLocalTheme == "dark") this.selectTheme = !this.selectTheme
-    }
-    if (getSourceSubUrl != null) {
-      this.form.sourceSubUrl = getSourceSubUrl
-    }
   },
 }
 </script>
