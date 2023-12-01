@@ -15,17 +15,17 @@ export default [
       {
         label: "QISA_精简分组",
         value:
-          "https://cdn.jsdelivr.net/gh/qisayouran/cdn@master/clash-config/qisa-mini.ini",
+          "https://cdn.statically.io/gh/qisayouran/cdn/master/clash-config/qisa-mini.ini",
       },
       {
         label: "QISA_全分组",
         value:
-          "https://cdn.jsdelivr.net/gh/qisayouran/cdn@master/clash-config/qisa-full.ini",
+          "https://cdn.statically.io/gh/qisayouran/cdn/master/clash-config/qisa-full.ini",
       },
       {
         label: "QISA_全分组_地区自动选择",
         value:
-          "https://cdn.jsdelivr.net/gh/qisayouran/cdn@master/clash-config/qisa-full-urltest.ini",
+          "https://cdn.statically.io/gh/qisayouran/cdn/master/clash-config/qisa-full-urltest.ini",
       },
     ],
   },
@@ -35,37 +35,37 @@ export default [
       {
         label: "Maying",
         value:
-          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/maying.ini",
+          "https://cdn.statically.io/gh/SleepyHeeead/subconverter-config/master/remote-config/customized/maying.ini",
       },
       {
         label: "Ytoo",
         value:
-          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ytoo.ini",
+          "https://cdn.statically.io/gh/SleepyHeeead/subconverter-config/master/remote-config/customized/ytoo.ini",
       },
       {
         label: "FlowerCloud",
         value:
-          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/flowercloud.ini",
+          "https://cdn.statically.io/gh/SleepyHeeead/subconverter-config/master/remote-config/customized/flowercloud.ini",
       },
       {
         label: "Nexitally",
         value:
-          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/nexitally.ini",
+          "https://cdn.statically.io/gh/SleepyHeeead/subconverter-config/master/remote-config/customized/nexitally.ini",
       },
       {
         label: "SoCloud",
         value:
-          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/socloud.ini",
+          "https://cdn.statically.io/gh/SleepyHeeead/subconverter-config/master/remote-config/customized/socloud.ini",
       },
       {
         label: "ARK",
         value:
-          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ark.ini",
+          "https://cdn.statically.io/gh/SleepyHeeead/subconverter-config/master/remote-config/customized/ark.ini",
       },
       {
         label: "ssrCloud",
         value:
-          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/customized/ssrcloud.ini",
+          "https://cdn.statically.io/gh/SleepyHeeead/subconverter-config/master/remote-config/customized/ssrcloud.ini",
       },
     ],
   },
@@ -75,77 +75,77 @@ export default [
       {
         label: "ACL_默认版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online.ini",
       },
       {
         label: "ACL_无测速版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online_NoAuto.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_NoAuto.ini",
       },
       {
         label: "ACL_去广告版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online_AdblockPlus.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_AdblockPlus.ini",
       },
       {
         label: "ACL_多国家版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online_MultiCountry.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_MultiCountry.ini",
       },
       {
         label: "ACL_无Reject版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online_NoReject.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_NoReject.ini",
       },
       {
         label: "ACL_无测速精简版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online_Mini_NoAuto.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini_NoAuto.ini",
       },
       {
         label: "ACL_全分组版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online_Full.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full.ini",
       },
       {
         label: "ACL_全分组谷歌版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online_Full_Google.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_Google.ini",
       },
       {
         label: "ACL_全分组多模式版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online_Full_MultiMode.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_MultiMode.ini",
       },
       {
         label: "ACL_全分组奈飞版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online_Full_Netflix.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Full_Netflix.ini",
       },
       {
         label: "ACL_精简版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online_Mini.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini.ini",
       },
       {
         label: "ACL_去广告精简版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online_Mini_AdblockPlus.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini_AdblockPlus.ini",
       },
       {
         label: "ACL_Fallback精简版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online_Mini_Fallback.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini_Fallback.ini",
       },
       {
         label: "ACL_多国家精简版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online_Mini_MultiCountry.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini_MultiCountry.ini",
       },
       {
         label: "ACL_多模式精简版",
         value:
-          "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/config/ACL4SSR_Online_Mini_MultiMode.ini",
+          "https://cdn.statically.io/gh/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini_MultiMode.ini",
       },
     ],
   },
@@ -155,12 +155,12 @@ export default [
       {
         label: "No-Urltest",
         value:
-          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/no-urltest.ini",
+          "https://cdn.statically.io/gh/SleepyHeeead/subconverter-config/master/remote-config/universal/no-urltest.ini",
       },
       {
         label: "Urltest",
         value:
-          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/universal/urltest.ini",
+          "https://cdn.statically.io/gh/SleepyHeeead/subconverter-config/master/remote-config/universal/urltest.ini",
       },
     ],
   },
@@ -170,12 +170,12 @@ export default [
       {
         label: "Basic(仅GEOIP CN + Final)",
         value:
-          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/special/basic.ini",
+          "https://cdn.statically.io/gh/SleepyHeeead/subconverter-config/master/remote-config/special/basic.ini",
       },
       {
         label: "NeteaseUnblock",
         value:
-          "https://cdn.jsdelivr.net/gh/SleepyHeeead/subconverter-config@master/remote-config/special/netease.ini",
+          "https://cdn.statically.io/gh/SleepyHeeead/subconverter-config/master/remote-config/special/netease.ini",
       },
     ],
   },
