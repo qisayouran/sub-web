@@ -404,7 +404,17 @@ export default {
       selectTheme: false,
     }
   },
-
+  created() {
+    let getLocalTheme = localStorage.getItem("theme")
+    let getSourceSubUrl = localStorage.getItem("sourceSubUrl")
+    if (getLocalTheme != null) {
+      if (getLocalTheme == "dark") this.selectTheme = !this.selectTheme
+    }
+    if (getSourceSubUrl != null) {
+      this.form.sourceSubUrl = getSourceSubUrl
+    }
+    this.form.remoteConfig = remote[1].options[0].value
+  },
   methods: {
     onCopy() {
       this.$message.success("Copied!")
@@ -602,16 +612,6 @@ export default {
     autoTheme() {
       localStorage.setItem("theme", "")
     },
-  },
-  created() {
-    let getLocalTheme = localStorage.getItem("theme")
-    let getSourceSubUrl = localStorage.getItem("sourceSubUrl")
-    if (getLocalTheme != null) {
-      if (getLocalTheme == "dark") this.selectTheme = !this.selectTheme
-    }
-    if (getSourceSubUrl != null) {
-      this.form.sourceSubUrl = getSourceSubUrl
-    }
   },
 }
 </script>
